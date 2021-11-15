@@ -1,4 +1,4 @@
-import Vex from "vexflow";
+import * as VF from "vexflow";
 
 import {VexFlowBackend} from "./VexFlowBackend";
 import {VexFlowConverter} from "./VexFlowConverter";
@@ -12,7 +12,7 @@ import log from "loglevel";
 
 export class SvgVexFlowBackend extends VexFlowBackend {
 
-    private ctx: Vex.Flow.SVGContext;
+    private ctx: VF.SVGContext;
     private zoom: number;
 
     constructor(rules: EngravingRules) {
@@ -20,8 +20,8 @@ export class SvgVexFlowBackend extends VexFlowBackend {
         this.rules = rules;
     }
 
-    public getVexflowBackendType(): Vex.Flow.Renderer.Backends {
-        return Vex.Flow.Renderer.Backends.SVG;
+    public getVexflowBackendType(): number {
+        return VF.Renderer.Backends.SVG;
     }
 
     public getOSMDBackendType(): BackendType {
@@ -41,12 +41,13 @@ export class SvgVexFlowBackend extends VexFlowBackend {
         this.inner.style.position = "relative";
         this.canvas.style.zIndex = "0";
         container.appendChild(this.inner);
-        this.renderer = new Vex.Flow.Renderer(this.canvas, this.getVexflowBackendType());
-        this.ctx = <Vex.Flow.SVGContext>this.renderer.getContext();
+        // @ts-ignore
+        this.renderer = new VF.Renderer(this.canvas, this.getVexflowBackendType());
+        this.ctx = <VF.SVGContext>this.renderer.getContext();
         this.ctx.svg.id = "osmdSvgPage" + this.graphicalMusicPage.PageNumber;
     }
 
-    public getContext(): Vex.Flow.SVGContext {
+    public getContext(): VF.SVGContext {
         return this.ctx;
     }
 
@@ -105,6 +106,7 @@ export class SvgVexFlowBackend extends VexFlowBackend {
                       heightInPixel: number, screenPosition: PointF2D,
                       color: string = undefined, fontFamily: string = undefined): Node {
         this.ctx.save();
+        // @ts-ignore
         const node: Node = this.ctx.openGroup();
 
         if (color) {
@@ -146,6 +148,7 @@ export class SvgVexFlowBackend extends VexFlowBackend {
     }
     public renderRectangle(rectangle: RectangleF2D, styleId: number, colorHex: string, alpha: number = 1): Node {
         this.ctx.save();
+        // @ts-ignore
         const node: Node = this.ctx.openGroup();
         if (colorHex) {
             this.ctx.attributes.fill = colorHex;
@@ -162,6 +165,7 @@ export class SvgVexFlowBackend extends VexFlowBackend {
 
     public renderLine(start: PointF2D, stop: PointF2D, color: string = "#FF0000FF", lineWidth: number = 2): Node {
         this.ctx.save();
+        // @ts-ignore
         const node: Node = this.ctx.openGroup();
         this.ctx.beginPath();
         this.ctx.moveTo(start.x, start.y);
@@ -203,6 +207,7 @@ export class SvgVexFlowBackend extends VexFlowBackend {
         this.ctx.lineTo(points[0].x, points[0].y);
         //this.ctx.stroke();
         this.ctx.closePath();
+        // @ts-ignore
         this.ctx.fill();
     }
 
