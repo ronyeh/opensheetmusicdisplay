@@ -10,7 +10,6 @@
     "lint": "npm run eslint",
     "test": "karma start --single-run --no-auto-watch",
     "test:watch": "karma start --no-single-run --auto-watch --browsers ChromeNoSecurity",
-    "prebuild": "ncp src/VexFlowPatch/src/ node_modules/vexflow/src/",
     "prepare": "npm run build",
     "build": "npm-run-all lint build:webpack",
     "build:doc": "cross-env STATIC_FILES_SUBFOLDER=sheets npm run build",
