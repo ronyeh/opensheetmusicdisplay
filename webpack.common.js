@@ -11,7 +11,7 @@ module.exports = {
         path: path.resolve(__dirname, 'build'),
         filename: '[name].js',
         library: 'opensheetmusicdisplay',
-        libraryTarget: 'module',
+        libraryTarget: 'umd',
         globalObject: 'this'
     },
     resolve: {
